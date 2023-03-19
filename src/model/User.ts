@@ -9,8 +9,9 @@ export class User extends Entity {
 		private cpf: string,
 		private email: string,
 		private age: number,
+		id?: string
 	){
-		super();
+		super(id);
 		this.name = name;
 		this.cpf = cpf;
 		this.email = email;
