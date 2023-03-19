@@ -4,14 +4,16 @@ import { EmailRegisteredError } from "../validationErrors/EmailRegisteredError";
 import { EntityNotFoundError } from './../validationErrors/EntityNotFoundError';
 import { CpfRegisteredError } from "../validationErrors/CpfRegisteredError";
 import { InvalidBodyError } from './../validationErrors/InvalidBodyError';
+import { IUserRepository } from '../contracts/IUserRepository';
 import { Transaction } from './../model/Transaction';
 import { Repository } from "./Repository";
 import { User } from "../model/User";
-import { IUserRepository } from '../contracts/IUserRepository';
+import transactionsDB from '../db/transactions';
 
 export class UserRepository extends Repository<User> implements IUserRepository {
 	constructor(initialDb: User[]){
 		super(initialDb, 'usuário');
+		this.initDefaultTransactions();		
 	}
 
 	public Create(name: string, cpf: string, email: string, age: number){
@@ -121,12 +123,14 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 		return foundUser !== undefined && foundUser.Id !== interestedId;
 	}
 
-	private findByCpf(cpf: string) {
-		return this.db.find(user => user.Cpf === cpf);
-	}
-
 	private cpfRegistered(cpf: string) {
 		return this.db.find(user => user.Cpf === cpf) !== undefined;
+	}
+
+	private initDefaultTransactions() {
+		transactionsDB.forEach(transaction => {
+			this.AddTransaction(this.db[0], transaction);
+		});
 	}
 	/* #endregion */
 }
