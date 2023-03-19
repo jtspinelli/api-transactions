@@ -16,6 +16,7 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 		this.initDefaultTransactions();		
 	}
 
+	/* #region User Logic */
 	public Create(name: string, cpf: string, email: string, age: number){
 		if(!name) throw new RequiredFieldMissingError('name');
 		if(!cpf) throw new RequiredFieldMissingError('cpf');
@@ -43,7 +44,9 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 
 		return user;
 	}
+	/* #endregion */
 
+	/* #region User's Transaction Logic */
 	private AddTransaction(user: User, transaction: Transaction) {
 		user.Transactions.push(transaction);
 	}	
@@ -108,6 +111,7 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 
 		return transaction;
 	}
+	/* #endregion */
 	
 	/* #region Helper Methods */
 	private findByEmail(email: string) {

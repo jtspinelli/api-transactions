@@ -1,7 +1,8 @@
 import { EntityNotFoundError } from '../validationErrors/EntityNotFoundError';
+import { IRepository } from '../contracts/IRepository';
 import { Entity } from "../model/Entity";
 
-export abstract class Repository<T extends Entity> {
+export abstract class Repository<T extends Entity> implements IRepository<T> {
 	protected db: T[] = [];
 
 	private entityName: string;
