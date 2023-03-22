@@ -3,10 +3,10 @@ import { InvalidPropertyTypeError } from '../validation/errors/InvalidPropertyTy
 import { EmailRegisteredError } from "../validation/errors/EmailRegisteredError";
 import { EntityNotFoundError } from '../validation/errors/EntityNotFoundError';
 import { InvalidBodyError } from '../validation/errors/InvalidBodyError';
-import { IUserRepository } from '../contracts/IUserRepository';
-import { Transaction } from './../model/Transaction';
+import { IUserRepository } from '../domain/contract/IUserRepository';
+import { Transaction } from '../domain/model/Transaction';
 import { Repository } from "./Repository";
-import { User } from "../model/User";
+import { User } from "../domain/model/User";
 import transactionsDB from '../db/transactions';
 
 export class UserRepository extends Repository<User> implements IUserRepository {

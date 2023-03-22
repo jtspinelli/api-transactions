@@ -1,7 +1,7 @@
 import { success } from "../helper/httpResponses";
 import { Request, Response } from 'express';
 import { userRepository } from './../index';
-import { User } from "../model/User";
+import { User } from "../domain/model/User";
 
 export class UserController{
 	public GetAll(_req: Request, res: Response) {

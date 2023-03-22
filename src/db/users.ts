@@ -1,4 +1,4 @@
-import { User } from "../model/User";
+import { User } from "../domain/model/User";
 
 const usersDB: User[] = [
 	new User('Jonathan', '23423432', 'jonathan@spinelli.com', 34, '1af8bf54-1894-41e8-9685-f2f5af42f7e1'),
