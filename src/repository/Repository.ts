@@ -1,4 +1,4 @@
-import { EntityNotFoundError } from '../validationErrors/EntityNotFoundError';
+import { EntityNotFoundError } from '../validation/errors/EntityNotFoundError';
 import { IRepository } from '../contracts/IRepository';
 import { Entity } from "../model/Entity";
 

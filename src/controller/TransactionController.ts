@@ -1,9 +1,9 @@
-import { badRequest, internalError, notFound, success } from "./httpResponses";
-import { RequiredFieldMissingError } from "../validationErrors/RequiredFieldMissingError";
-import { InvalidPropertyTypeError } from "../validationErrors/InvalidPropertyTypeError";
-import { EntityNotFoundError } from "../validationErrors/EntityNotFoundError";
+import { badRequest, internalError, notFound, success } from "../helper/httpResponses";
+import { RequiredFieldMissingError } from "../validation/errors/RequiredFieldMissingError";
+import { InvalidPropertyTypeError } from "../validation/errors/InvalidPropertyTypeError";
+import { EntityNotFoundError } from "../validation/errors/EntityNotFoundError";
 import { Request, Response } from "express";
-import { InvalidBodyError } from './../validationErrors/InvalidBodyError';
+import { InvalidBodyError } from '../validation/errors/InvalidBodyError';
 import { userRepository } from "..";
 
 export class TransactionController {

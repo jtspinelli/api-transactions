@@ -1,9 +1,8 @@
-import { RequiredFieldMissingError } from './../validationErrors/RequiredFieldMissingError';
-import { InvalidPropertyTypeError } from './../validationErrors/InvalidPropertyTypeError';
-import { EmailRegisteredError } from "../validationErrors/EmailRegisteredError";
-import { EntityNotFoundError } from './../validationErrors/EntityNotFoundError';
-import { CpfRegisteredError } from "../validationErrors/CpfRegisteredError";
-import { InvalidBodyError } from './../validationErrors/InvalidBodyError';
+import { RequiredFieldMissingError } from '../validation/errors/RequiredFieldMissingError';
+import { InvalidPropertyTypeError } from '../validation/errors/InvalidPropertyTypeError';
+import { EmailRegisteredError } from "../validation/errors/EmailRegisteredError";
+import { EntityNotFoundError } from '../validation/errors/EntityNotFoundError';
+import { InvalidBodyError } from '../validation/errors/InvalidBodyError';
 import { IUserRepository } from '../contracts/IUserRepository';
 import { Transaction } from './../model/Transaction';
 import { Repository } from "./Repository";
@@ -17,14 +16,7 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 	}
 
 	/* #region User Logic */
-	public Create(name: string, cpf: string, email: string, age: number){
-		if(!name) throw new RequiredFieldMissingError('name');
-		if(!cpf) throw new RequiredFieldMissingError('cpf');
-		if(this.cpfRegistered(cpf)) throw new CpfRegisteredError();
-		if(!email) throw new RequiredFieldMissingError('email');
-		if(this.emailRegistered(email)) throw new EmailRegisteredError();
-		if(!age) throw new RequiredFieldMissingError('age');
-		
+	public Create(name: string, cpf: string, email: string, age: number){		
 		const newUser = new User(name, cpf, email, age);
 		this.Add(newUser);
 
@@ -34,12 +26,7 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 	public Update(id: string, data: {name: string, email: string}) {
 		const user = this.GetById(id);
 
-		if(data.email) {
-			if(this.emailRegisteredByAnotherId(data.email, id)) throw new EmailRegisteredError();
-
-			user.setEmail(data.email);
-		}
-
+		if(data.email) user.setEmail(data.email);
 		if(data.name) user.setName(data.name);
 
 		return user;
@@ -118,16 +105,20 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 		return this.db.find(user => user.Email === email);
 	}
 
-	private emailRegistered(email: string) {
+	public emailRegistered(email: string) {
 		return this.db.find(user => user.Email === email) !== undefined;
 	}
 
-	private emailRegisteredByAnotherId (email: string, interestedId: string) {
+	public emailRegisteredByAnotherId (email: string, interestedId: string) {
 		const foundUser = this.findByEmail(email);
-		return foundUser !== undefined && foundUser.Id !== interestedId;
+		if(foundUser !== undefined && foundUser.Id !== interestedId) {
+			throw new EmailRegisteredError();
+		}
+
+		return false;
 	}
 
-	private cpfRegistered(cpf: string) {
+	public cpfRegistered(cpf: string) {
 		return this.db.find(user => user.Cpf === cpf) !== undefined;
 	}
 
