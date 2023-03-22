@@ -1,6 +1,6 @@
-import { UserRepository } from './repository/UserRepository';
+import { UserRepository } from '../infrastructure/repository/UserRepository';
 import express from 'express';
-import usersDB from './db/users';
+import usersDB from '../infrastructure/db/users';
 import userRouter from './routes/userRoutes';
 import transactionRouter from './routes/transactionRoutes';
 

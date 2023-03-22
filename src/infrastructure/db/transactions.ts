@@ -1,4 +1,4 @@
-import { Transaction } from "../domain/model/Transaction";
+import { Transaction } from "../../domain/model/Transaction";
 
 const transactionsDB: Transaction[] = [
 	new Transaction('Pagamento', 4500, 'ENTRADA', '829dc216-48d7-423f-8fe6-5f7c266bd84a'),

@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node out/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q out/index.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q out/app/index.js\""
   },
   "author": "",
   "license": "ISC",

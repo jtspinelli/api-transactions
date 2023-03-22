@@ -1,12 +1,12 @@
-import { RequiredFieldMissingError } from '../validation/errors/RequiredFieldMissingError';
-import { InvalidPropertyTypeError } from '../validation/errors/InvalidPropertyTypeError';
-import { EmailRegisteredError } from "../validation/errors/EmailRegisteredError";
-import { EntityNotFoundError } from '../validation/errors/EntityNotFoundError';
-import { InvalidBodyError } from '../validation/errors/InvalidBodyError';
-import { IUserRepository } from '../domain/contract/IUserRepository';
-import { Transaction } from '../domain/model/Transaction';
+import { RequiredFieldMissingError } from '../../app/validation/errors/RequiredFieldMissingError';
+import { InvalidPropertyTypeError } from '../../app/validation/errors/InvalidPropertyTypeError';
+import { EmailRegisteredError } from "../../app/validation/errors/EmailRegisteredError";
+import { EntityNotFoundError } from '../../app/validation/errors/EntityNotFoundError';
+import { InvalidBodyError } from '../../app/validation/errors/InvalidBodyError';
+import { IUserRepository } from '../../domain/contract/IUserRepository';
+import { Transaction } from '../../domain/model/Transaction';
 import { Repository } from "./Repository";
-import { User } from "../domain/model/User";
+import { User } from "../../domain/model/User";
 import transactionsDB from '../db/transactions';
 
 export class UserRepository extends Repository<User> implements IUserRepository {
